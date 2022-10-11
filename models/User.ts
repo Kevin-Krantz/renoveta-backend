@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 import "mongoose-type-email";
 
 const userSchema = new mongoose.Schema<IUser>({
-  email: { type: String, required: true },
+  // @ts-ignore
+  email: { type: mongoose.SchemaTypes.Email, required: true },
   password: { type: String, minlength: 5, required: true },
 });
 
@@ -19,5 +20,4 @@ const validateUser = (user: IUser) => {
   return schema.validate(user);
 };
 
-export default validateUser;
-User;
+export { validateUser, User };

@@ -1,5 +1,5 @@
 import express from "express";
-import validate from "../models/User";
+import { validateUser as validate, User } from "../models/User";
 const router = express.Router();
 
 router.post("/", (req, res) => {
