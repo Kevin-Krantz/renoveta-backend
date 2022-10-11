@@ -1,9 +1,9 @@
 import { IUser } from "types/IUser";
 import Joi from "joi";
-import mongoose from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import "mongoose-type-email";
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema: Schema<IUser> = new mongoose.Schema({
   firstName: { type: String, minlength: 2, required: true },
   lastName: { type: String, minlength: 2, required: true },
   // @ts-ignore
@@ -11,10 +11,12 @@ const userSchema = new mongoose.Schema<IUser>({
   password: { type: String, minlength: 5, required: true },
 });
 
-const User = mongoose.model("User", userSchema);
+const User: Model<IUser> = mongoose.model("User", userSchema);
 
 const validateUser = (user: IUser) => {
   const schema = Joi.object({
+    firstName: Joi.string().min(2).required(),
+    lastName: Joi.string().min(2).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(5).required(),
   });
