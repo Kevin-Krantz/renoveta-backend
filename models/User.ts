@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import "mongoose-type-email";
 
 const userSchema = new mongoose.Schema<IUser>({
+  firstName: { type: String, minlength: 2, required: true },
+  lastName: { type: String, minlength: 2, required: true },
   // @ts-ignore
   email: { type: mongoose.SchemaTypes.Email, required: true },
   password: { type: String, minlength: 5, required: true },
