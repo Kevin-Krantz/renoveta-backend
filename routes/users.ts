@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { validateUser as validate, User } from "../models/User";
 const router = express.Router();
 
@@ -16,8 +17,12 @@ router.post("/", async (req, res) => {
   user.save();
 
   const { password, ...userWithoutPassword } = user.toObject();
+  const token = jwt.sign(userWithoutPassword, process.env.JWT_SECRET as string);
 
-  return res.status(201).send(userWithoutPassword);
+  return res
+    .status(201)
+    .header("x-auth-token", token)
+    .send(userWithoutPassword);
 });
 
 export default router;
