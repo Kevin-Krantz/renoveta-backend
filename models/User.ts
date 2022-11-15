@@ -9,16 +9,21 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   // @ts-ignore
   email: { type: mongoose.SchemaTypes.Email, required: true },
   password: { type: String, minlength: 6, required: true },
+  isAdmin: Boolean,
 });
 
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
-    { _id: this._id, name: this.name, email: this.email },
+    {
+      _id: this._id,
+      name: this.name,
+      email: this.email,
+      isAdmin: this.isAdmin,
+    },
     process.env.JWT_SECRET as string
   );
 };
 
-// 1:35:45 glöm inte o committa osv once again.
 const User: Model<IUser> = mongoose.model("User", userSchema);
 
 const validateUser = (user: IUser) => {
@@ -31,4 +36,4 @@ const validateUser = (user: IUser) => {
   return schema.validate(user);
 };
 
-export { validateUser, User };
+export { validateUser, User, userSchema };

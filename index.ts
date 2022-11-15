@@ -1,5 +1,6 @@
 import auth from "./routes/auth";
 import users from "./routes/users";
+import forms from "./routes/form";
 import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", auth);
 app.use("/api/users", users);
+app.use("/api/forms", forms);
 
 mongoose
   .connect("mongodb://localhost/renoveta-backend")
