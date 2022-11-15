@@ -16,7 +16,7 @@ const rooftypes = Object.values<TypeOfRoof>(TypeOfRoof);
 const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 
 const formRenovationSchema = new Schema<IForm>({
-  user: { type: userSchema, required: true },
+  user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
 
   renovationType: {
     type: [{ type: String, enum: renovationtypes, required: true }],
@@ -96,7 +96,7 @@ function validateForm(formSchema: IForm) {
         length: Joi.number().required(),
         width: Joi.number().required(),
       }),
-    questions: Joi.string().min(0),
+    questions: Joi.string(),
     fileUpload: Joi.string(),
     userInfo: Joi.object<UserInfo>()
       .required()
