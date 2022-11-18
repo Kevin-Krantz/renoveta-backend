@@ -20,7 +20,7 @@ userSchema.methods.generateAuthToken = function () {
       email: this.email,
       isAdmin: this.isAdmin,
     },
-    process.env.JWT_SECRET as string
+    "jwtPrivateKey"
   );
 };
 
@@ -36,4 +36,4 @@ const validateUser = (user: IUser) => {
   return schema.validate(user);
 };
 
-export { validateUser, User, userSchema };
+export { validateUser, User };

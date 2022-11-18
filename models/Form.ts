@@ -8,7 +8,6 @@ import {
   Residence,
 } from "types";
 import mongoose, { Schema, Model } from "mongoose";
-import { userSchema } from "./User";
 import Joi from "joi";
 
 const renovationtypes = Object.values<RenovationType>(RenovationType);
