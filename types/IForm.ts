@@ -13,6 +13,7 @@ export interface IForm {
   questions: string;
   fileUpload: string; // måste kunna ladda upp på något sätt
   userInfo: UserInfo;
+  adminResponse: string;
   dateIssued: Date;
 }
 
