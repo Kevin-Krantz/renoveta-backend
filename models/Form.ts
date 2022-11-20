@@ -52,6 +52,8 @@ const formRenovationSchema = new Schema<IForm>({
     required: true,
   },
 
+  adminResponse: { type: String },
+
   dateIssued: { type: Date, default: Date.now() },
 });
 
@@ -102,6 +104,7 @@ function validateForm(formSchema: IForm) {
       .strict()
       .keys({
         email: Joi.string().email().required(),
+        phone: Joi.string().required(),
         name: Joi.string().required(),
         lastName: Joi.string().required(),
         residence: Joi.object<Residence>().required().keys({
@@ -110,6 +113,7 @@ function validateForm(formSchema: IForm) {
           city: Joi.string().required(),
         }),
       }),
+    adminResponse: Joi.string(),
   });
   return schema.validate(formSchema);
 }

@@ -1,4 +1,5 @@
 import express from "express";
+import Joi from "joi";
 import admin from "middleware/admin";
 import { User } from "models/User";
 import auth from "../middleware/auth";
@@ -10,7 +11,6 @@ router.get("/", auth, async (req: any, res) => {
   // bara auth
   // typa upp req
   const forms = await RenovetaForm.find({ user: req.user });
-  console.log(req.user);
 
   return res.send(forms);
 });
@@ -32,13 +32,9 @@ router.get("/:id", auth, async (req, res) => {
   return res.send(form);
 });
 
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
-
-  const user = await User.findById(req.body.userId);
-  if (!user)
-    return res.status(404).send("The user with the given id was not found.");
 
   let form: any = new RenovetaForm({
     user: req.body.userId,
@@ -54,6 +50,24 @@ router.post("/", auth, async (req, res) => {
 
   form = await form.save();
   return res.status(201).send(form);
+});
+
+router.put("/:id", [auth, admin], async (req: any, res: any) => {
+  const schema = Joi.object({ adminResponse: Joi.string() });
+  const { error } = schema.validate(req.body);
+
+  if (error) return res.status(400).send(error.message);
+
+  const form = await RenovetaForm.findById(req.params.id);
+  if (!form)
+    return res.status(404).send("The user with the given id was not found.");
+
+  // gör uppdateringen
+  form.adminResponse = req.body.adminResponse;
+
+  await form.save();
+
+  return res.send(form);
 });
 
 export default router;
