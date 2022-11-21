@@ -26,7 +26,7 @@ export interface UserInfo {
   email: string;
   phone: number;
   name: string;
-  lastName: string;
+  password: string;
   residence: Residence;
   wantToRegister: boolean;
   signAgreement: boolean;

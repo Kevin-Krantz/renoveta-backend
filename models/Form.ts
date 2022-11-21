@@ -106,7 +106,7 @@ function validateForm(formSchema: IForm) {
         email: Joi.string().email().required(),
         phone: Joi.string().required(),
         name: Joi.string().required(),
-        lastName: Joi.string().required(),
+        password: Joi.string().min(6).required(),
         residence: Joi.object<Residence>().required().keys({
           streetAdressAndNumber: Joi.string().required(),
           propertyDesignation: Joi.string().required(),
