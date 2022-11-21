@@ -17,22 +17,19 @@ const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 const formRenovationSchema = new Schema<IForm>({
   user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
 
-  renovationType: {
-    type: [{ type: String, enum: renovationtypes, required: true }],
-    required: true,
-  },
+  renovationType: { type: String, required: true },
 
   extraRenovationRequirements: { type: String },
 
   typeOfRoof: {
     // Kolla om man får skicka in flera typer av tak
-    type: [{ type: String, enum: rooftypes, required: true }],
+    type: String,
     required: true,
   },
 
   roofMaterial: {
     // Kolla om man får skicka in flera olika tak material
-    type: [{ type: String, enum: roofmaterialtypes, required: true }],
+    type: String,
     required: true,
   },
 
@@ -65,30 +62,11 @@ const RenovetaForm: Model<IForm> = mongoose.model(
 function validateForm(formSchema: IForm) {
   const schema = Joi.object<IForm>({
     // @ts-ignore
-    userId: Joi.string().required(),
-
-    renovationType: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...renovationtypes)
-          .required()
-      )
-      .required(),
+    userId: Joi.string(),
+    renovationType: Joi.string().required(),
     extraRenovationRequirements: Joi.string(),
-    typeOfRoof: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...rooftypes)
-          .required()
-      )
-      .required(),
-    roofMaterial: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...roofmaterialtypes)
-          .required()
-      )
-      .required(),
+    typeOfRoof: Joi.string().required(),
+    roofMaterial: Joi.string().required(),
     roofAngle: Joi.number().required(),
     houseMeasurements: Joi.object<HouseMeasurements>()
       .required()

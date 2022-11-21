@@ -1,7 +1,6 @@
 import express from "express";
 import Joi from "joi";
 import admin from "middleware/admin";
-import { User } from "models/User";
 import auth from "../middleware/auth";
 import { validateForm as validate, RenovetaForm } from "../models/Form";
 
