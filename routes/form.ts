@@ -1,6 +1,7 @@
 import express from "express";
 import Joi from "joi";
 import admin from "middleware/admin";
+import { customerHasIncomingResponse } from "service/nodemail";
 import auth from "../middleware/auth";
 import { validateForm as validate, RenovetaForm } from "../models/Form";
 
@@ -65,6 +66,7 @@ router.put("/:id", [auth, admin], async (req: any, res: any) => {
   form.adminResponse = req.body.adminResponse;
 
   await form.save();
+  customerHasIncomingResponse(req.body.email, req.body.name);
 
   return res.send(form);
 });
