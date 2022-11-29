@@ -42,9 +42,10 @@ router.post("/", async (req, res) => {
     typeOfRoof: req.body.typeOfRoof,
     roofMaterial: req.body.roofMaterial,
     roofAngle: req.body.roofAngle,
-    houseMeasurements: req.body.houseMeasurements,
+    propertyWidth:  req.body.propertyWidth,
+    propertyLength:  req.body.propertyLength,
     questions: req.body.questions,
-    extraRenovationRequirements: req.body.extraRenovationRequirements,
+   /* extraRenovationRequirements: req.body.extraRenovationRequirements,*/
     userInfo: req.body.userInfo,
   });
 

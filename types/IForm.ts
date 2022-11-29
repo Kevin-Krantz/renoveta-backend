@@ -4,12 +4,13 @@ import { TypeOfRoof } from "./TypeOfRoof";
 
 export interface IForm {
   user: any;
-  renovationType: RenovationType[];
-  extraRenovationRequirements: string;
-  typeOfRoof: TypeOfRoof[];
-  roofMaterial: RoofMaterial[];
-  roofAngle: number;
-  houseMeasurements: HouseMeasurements;
+  renovationType: string;
+ /* extraRenovationRequirements: string;*/
+  typeOfRoof: string;
+  roofMaterial: string;
+  roofAngle: string;
+  propertyWidth: string,
+  propertyLength: string,
   questions: string;
   fileUpload: string; // måste kunna ladda upp på något sätt
   userInfo: UserInfo;

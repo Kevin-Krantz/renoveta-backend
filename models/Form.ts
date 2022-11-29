@@ -10,38 +10,34 @@ import {
 import mongoose, { Schema, Model } from "mongoose";
 import Joi from "joi";
 
-const renovationtypes = Object.values<RenovationType>(RenovationType);
-const rooftypes = Object.values<TypeOfRoof>(TypeOfRoof);
-const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 
 const formRenovationSchema = new Schema<IForm>({
   user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
 
   renovationType: {
-    type: [{ type: String, enum: renovationtypes, required: true }],
+    type: String,
     required: true,
   },
 
-  extraRenovationRequirements: { type: String },
+  /*extraRenovationRequirements: { type: String },*/
 
   typeOfRoof: {
     // Kolla om man får skicka in flera typer av tak
-    type: [{ type: String, enum: rooftypes, required: true }],
+    type: String,
     required: true,
   },
 
   roofMaterial: {
     // Kolla om man får skicka in flera olika tak material
-    type: [{ type: String, enum: roofmaterialtypes, required: true }],
+    type: String,
     required: true,
   },
 
-  roofAngle: { type: Number, required: true },
+  roofAngle: { type: String},
+  
+  propertyWidth: { type: String, required: true },
+  propertyLength: { type: String, required: true },
 
-  houseMeasurements: {
-    type: Object as () => HouseMeasurements,
-    required: true,
-  },
 
   questions: { type: String },
 
@@ -49,7 +45,7 @@ const formRenovationSchema = new Schema<IForm>({
 
   userInfo: {
     type: Object as () => UserInfo,
-    required: true,
+    
   },
 
   adminResponse: { type: String },
@@ -65,38 +61,18 @@ const RenovetaForm: Model<IForm> = mongoose.model(
 function validateForm(formSchema: IForm) {
   const schema = Joi.object<IForm>({
     // @ts-ignore
-    userId: Joi.string().required(),
+    userId: Joi.string(),
 
-    renovationType: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...renovationtypes)
-          .required()
-      )
-      .required(),
+    renovationType:  Joi.string(),
+   /*
     extraRenovationRequirements: Joi.string(),
-    typeOfRoof: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...rooftypes)
-          .required()
-      )
-      .required(),
-    roofMaterial: Joi.array()
-      .items(
-        Joi.string()
-          .valid(...roofmaterialtypes)
-          .required()
-      )
-      .required(),
-    roofAngle: Joi.number().required(),
-    houseMeasurements: Joi.object<HouseMeasurements>()
-      .required()
-      .strict()
-      .keys({
-        length: Joi.number().required(),
-        width: Joi.number().required(),
-      }),
+    */
+    typeOfRoof: Joi.string(),
+    roofMaterial:  Joi.string(),
+
+    roofAngle: Joi.string(),
+    propertyWidth: Joi.string(),
+    propertyLength: Joi.string(),
     questions: Joi.string(),
     fileUpload: Joi.string(),
     userInfo: Joi.object<UserInfo>()
