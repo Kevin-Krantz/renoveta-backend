@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { registrationMailForCustomer } from "service/nodemail";
 const app = express();
 
 dotenv.config();
@@ -14,6 +15,8 @@ app.use(express.json());
 app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/forms", forms);
+
+// registrationMailForCustomer("jadeline.lu.08@gmail.com", "Jade");
 
 mongoose
   .connect("mongodb://localhost/renoveta-backend")
