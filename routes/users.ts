@@ -1,6 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import { validateUser as validate, User } from "../models/User";
+import {
+  registrationMailForCustomer,
+  registrationMailForRenoveta,
+} from "../service/nodemail";
+
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -18,6 +23,8 @@ router.post("/", async (req, res) => {
   const { password, ...userWithoutPassword } = user.toObject();
 
   const token = user.generateAuthToken();
+  registrationMailForCustomer(req.body.email, req.body.name);
+  registrationMailForRenoveta();
 
   return res
     .status(201)

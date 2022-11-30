@@ -4,10 +4,10 @@ import { TypeOfRoof } from "./TypeOfRoof";
 
 export interface IForm {
   user: any;
-  renovationType: RenovationType[];
+  renovationType: string;
   extraRenovationRequirements: string;
-  typeOfRoof: TypeOfRoof[];
-  roofMaterial: RoofMaterial[];
+  typeOfRoof: string;
+  roofMaterial: string;
   roofAngle: number;
   houseMeasurements: HouseMeasurements;
   questions: string;
