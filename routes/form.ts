@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
   return res.status(201).send(form);
 });
 
-router.put("/:id", [auth, admin], async (req: any, res: any) => {
+router.patch("/:id", [auth, admin], async (req: any, res: any) => {
   const schema = Joi.object({ adminResponse: Joi.string() });
   const { error } = schema.validate(req.body);
 
