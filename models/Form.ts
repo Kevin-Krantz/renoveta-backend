@@ -33,12 +33,11 @@ const formRenovationSchema = new Schema<IForm>({
     required: true,
   },
 
-  roofAngle: { type: Number, required: true },
+  roofAngle: { type: String, required: true },
 
-  houseMeasurements: {
-    type: Object as () => HouseMeasurements,
-    required: true,
-  },
+  propertyWidth: { type: String, required: true },
+  
+  propertyLength: { type: String, required: true },
 
   questions: { type: String },
 
@@ -67,14 +66,9 @@ function validateForm(formSchema: IForm) {
     extraRenovationRequirements: Joi.string(),
     typeOfRoof: Joi.string().required(),
     roofMaterial: Joi.string().required(),
-    roofAngle: Joi.number().required(),
-    houseMeasurements: Joi.object<HouseMeasurements>()
-      .required()
-      .strict()
-      .keys({
-        length: Joi.number().required(),
-        width: Joi.number().required(),
-      }),
+    roofAngle: Joi.string().required(),
+    propertyWidth: Joi.string().required(),
+    propertyLength:Joi.string().required(),
     questions: Joi.string(),
     fileUpload: Joi.string(),
     userInfo: Joi.object<UserInfo>()
