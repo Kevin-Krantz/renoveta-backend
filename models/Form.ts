@@ -33,7 +33,7 @@ const formRenovationSchema = new Schema<IForm>({
     required: true,
   },
 
-  roofAngle: { type: Number, required: true },
+  roofAngle: { type: String, required: true },
 
   houseMeasurements: {
     type: Object as () => HouseMeasurements,
@@ -42,7 +42,6 @@ const formRenovationSchema = new Schema<IForm>({
 
   questions: { type: String },
 
-  fileUpload: { type: String }, // måste kunna ladda upp på något sätt
 
   userInfo: {
     type: Object as () => UserInfo,
@@ -62,7 +61,7 @@ const RenovetaForm: Model<IForm> = mongoose.model(
 function validateForm(formSchema: IForm) {
   const schema = Joi.object<IForm>({
     // @ts-ignore
-    userId: Joi.string(),
+    user: Joi.string(),
     renovationType: Joi.string().required(),
     extraRenovationRequirements: Joi.string(),
     typeOfRoof: Joi.string().required(),
@@ -76,13 +75,12 @@ function validateForm(formSchema: IForm) {
         width: Joi.number().required(),
       }),
     questions: Joi.string(),
-    fileUpload: Joi.string(),
     userInfo: Joi.object<UserInfo>()
       .required()
       .strict()
       .keys({
         email: Joi.string().email().required(),
-        phone: Joi.string().required(),
+        phone: Joi.number().required(),
         name: Joi.string().required(),
         password: Joi.string().min(6).required(),
         residence: Joi.object<Residence>().required().keys({
