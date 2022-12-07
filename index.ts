@@ -16,8 +16,6 @@ app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/forms", forms);
 
-// registrationMailForCustomer("jadeline.lu.08@gmail.com", "Jade");
-
 mongoose
   .connect("mongodb://localhost/renoveta-backend")
   .then(() => console.log("Connected to MongoDB..."))
