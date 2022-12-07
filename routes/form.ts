@@ -38,7 +38,8 @@ router.post("/", async (req, res) => {
   console.log(req.body);
 
   let form: any = new RenovetaForm({
-    userId: req.body.userId,
+    _id: req.body._id,
+    user: req.body.userId,
     renovationType: req.body.renovationType,
     typeOfRoof: req.body.typeOfRoof,
     roofMaterial: req.body.roofMaterial,

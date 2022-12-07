@@ -15,7 +15,7 @@ const rooftypes = Object.values<TypeOfRoof>(TypeOfRoof);
 const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 
 const formRenovationSchema = new Schema<IForm>({
-  userId: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
+  user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
 
   renovationType: { type: String, required: true },
 

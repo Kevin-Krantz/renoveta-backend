@@ -3,7 +3,8 @@ import { RoofMaterial } from "./RoofMaterial";
 import { TypeOfRoof } from "./TypeOfRoof";
 
 export interface IForm {
-  userId: any;
+  _id: string,
+  user: any;
   renovationType: string;
   extraRenovationRequirements: string;
   typeOfRoof: string;
