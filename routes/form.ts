@@ -35,9 +35,10 @@ router.get("/:id", auth, async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
+  console.log(req.body);
 
   let form: any = new RenovetaForm({
-    user: req.body.userId,
+    userId: req.body.userId,
     renovationType: req.body.renovationType,
     typeOfRoof: req.body.typeOfRoof,
     roofMaterial: req.body.roofMaterial,

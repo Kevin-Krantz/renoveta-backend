@@ -15,7 +15,7 @@ const rooftypes = Object.values<TypeOfRoof>(TypeOfRoof);
 const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 
 const formRenovationSchema = new Schema<IForm>({
-  user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
+  userId: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
 
   renovationType: { type: String, required: true },
 
@@ -33,7 +33,7 @@ const formRenovationSchema = new Schema<IForm>({
     required: true,
   },
 
-  roofAngle: { type: Number, required: true },
+  roofAngle: { type: String, required: true },
 
   houseMeasurements: {
     type: Object as () => HouseMeasurements,
@@ -42,7 +42,6 @@ const formRenovationSchema = new Schema<IForm>({
 
   questions: { type: String },
 
-  fileUpload: { type: String }, // måste kunna ladda upp på något sätt
 
   userInfo: {
     type: Object as () => UserInfo,
@@ -76,13 +75,12 @@ function validateForm(formSchema: IForm) {
         width: Joi.number().required(),
       }),
     questions: Joi.string(),
-    fileUpload: Joi.string(),
     userInfo: Joi.object<UserInfo>()
       .required()
       .strict()
       .keys({
         email: Joi.string().email().required(),
-        phone: Joi.string().required(),
+        phone: Joi.number().required(),
         name: Joi.string().required(),
         password: Joi.string().min(6).required(),
         residence: Joi.object<Residence>().required().keys({
@@ -92,6 +90,7 @@ function validateForm(formSchema: IForm) {
         }),
       }),
     adminResponse: Joi.string(),
+    dateIssued: Joi.date(),
   });
   return schema.validate(formSchema);
 }
