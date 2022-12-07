@@ -3,7 +3,7 @@ import { RoofMaterial } from "./RoofMaterial";
 import { TypeOfRoof } from "./TypeOfRoof";
 
 export interface IForm {
-  user: any;
+  userId: any;
   renovationType: string;
   extraRenovationRequirements: string;
   typeOfRoof: string;
@@ -12,7 +12,7 @@ export interface IForm {
   houseMeasurements: HouseMeasurements;
   questions: string;
   userInfo: UserInfo;
-  adminResponse: string;
+  adminResponse?: string;
   dateIssued: Date;
 }
 

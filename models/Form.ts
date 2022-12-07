@@ -15,7 +15,7 @@ const rooftypes = Object.values<TypeOfRoof>(TypeOfRoof);
 const roofmaterialtypes = Object.values<RoofMaterial>(RoofMaterial);
 
 const formRenovationSchema = new Schema<IForm>({
-  user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
   renovationType: { type: String, required: true },
 
@@ -61,7 +61,7 @@ const RenovetaForm: Model<IForm> = mongoose.model(
 function validateForm(formSchema: IForm) {
   const schema = Joi.object<IForm>({
     // @ts-ignore
-    user: Joi.string(),
+    userId: Joi.string(),
     renovationType: Joi.string().required(),
     extraRenovationRequirements: Joi.string(),
     typeOfRoof: Joi.string().required(),
@@ -90,6 +90,7 @@ function validateForm(formSchema: IForm) {
         }),
       }),
     adminResponse: Joi.string(),
+    dateIssued: Joi.date(),
   });
   return schema.validate(formSchema);
 }
