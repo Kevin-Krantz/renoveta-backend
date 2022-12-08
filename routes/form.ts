@@ -12,7 +12,7 @@ router.get("/", auth, async (req: any, res) => {
 
   // bara auth
   // typa upp req
-  const forms = await RenovetaForm.find({ user: req.user._id });
+  const forms = await RenovetaForm.find({ userId: req.user._id });
 
   return res.send(forms);
 });
