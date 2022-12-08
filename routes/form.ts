@@ -8,9 +8,11 @@ import { validateForm as validate, RenovetaForm } from "../models/Form";
 const router = express.Router();
 
 router.get("/", auth, async (req: any, res) => {
+  console.log(req.user._id, "body");
+
   // bara auth
   // typa upp req
-  const forms = await RenovetaForm.find({ user: req.user });
+  const forms = await RenovetaForm.find({ user: req.user._id });
 
   return res.send(forms);
 });
@@ -67,7 +69,7 @@ router.patch("/:id", [auth, admin], async (req: any, res: any) => {
   form.adminResponse = req.body.adminResponse;
 
   await form.save();
-  customerHasIncomingResponse(req.body.email, req.body.name);
+  // customerHasIncomingResponse(req.body.email, req.body.name);
 
   return res.send(form);
 });
