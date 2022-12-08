@@ -5,13 +5,13 @@ export function registrationMailForCustomer(email: string, name: string) {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.MAIL_PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USERNAME,
+    from: process.env.MAIL_USERNAME,
     to: email,
     subject: "Tack för att du registrera hos Renoveta",
     text: `Hej ${name}!
@@ -68,13 +68,13 @@ export function customerHasIncomingResponse(email: string, name: string) {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.MAIL_PASSWORD,
     },
   });
 
   const emailOptions = {
-    from: process.env.EMAIL_USERNAME,
+    from: process.env.MAIL_USERNAME,
     to: email,
     subject: "Du har fått svar från Renoveta",
     text: `Hej ${name}!

@@ -1,18 +1,19 @@
 import express from "express";
 import Joi from "joi";
 import admin from "middleware/admin";
-import { customerHasIncomingResponse } from "service/nodemail";
+import {
+  customerHasIncomingResponse,
+  registrationMailForCustomer,
+} from "service/nodemail";
 import auth from "../middleware/auth";
 import { validateForm as validate, RenovetaForm } from "../models/Form";
 
 const router = express.Router();
 
 router.get("/", auth, async (req: any, res) => {
-  console.log(req.user._id, "body");
-
   // bara auth
   // typa upp req
-  const forms = await RenovetaForm.find({ user: req.user._id });
+  const forms = await RenovetaForm.find({ userId: req.user._id });
 
   return res.send(forms);
 });
@@ -37,7 +38,6 @@ router.get("/:id", auth, async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.message);
-  console.log(req.body);
 
   let form: any = new RenovetaForm({
     userId: req.body.userId,
@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
   });
 
   form = await form.save();
+  registrationMailForCustomer(req.body.userInfo.email, req.body.userInfo.name);
   return res.status(201).send(form);
 });
 
@@ -69,7 +70,7 @@ router.patch("/:id", [auth, admin], async (req: any, res: any) => {
   form.adminResponse = req.body.adminResponse;
 
   await form.save();
-  // customerHasIncomingResponse(req.body.email, req.body.name);
+  customerHasIncomingResponse(req.body.userInfo.email, req.body.userInfo.name);
 
   return res.send(form);
 });

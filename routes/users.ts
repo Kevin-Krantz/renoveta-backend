@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
   const { password, ...userWithoutPassword } = user.toObject();
 
   const token = user.generateAuthToken();
-  // registrationMailForCustomer(req.body.email, req.body.name);
+
   // registrationMailForRenoveta();
 
   return res

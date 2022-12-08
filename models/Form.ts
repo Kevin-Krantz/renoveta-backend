@@ -79,7 +79,7 @@ function validateForm(formSchema: IForm) {
       .strict()
       .keys({
         email: Joi.string().email().required(),
-        phone: Joi.number().required(),
+        phone: Joi.string().required(),
         name: Joi.string().required(),
         password: Joi.string().min(6).required(),
         residence: Joi.object<Residence>().required().keys({

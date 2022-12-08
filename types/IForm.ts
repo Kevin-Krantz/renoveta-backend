@@ -23,7 +23,7 @@ export interface HouseMeasurements {
 
 export interface UserInfo {
   email: string;
-  phone: number;
+  phone: string;
   name: string;
   password: string;
   residence: Residence;
