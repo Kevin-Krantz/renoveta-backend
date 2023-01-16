@@ -4,6 +4,7 @@ import admin from "middleware/admin";
 import {
   customerHasIncomingResponse,
   registrationMailForCustomer,
+  registrationMailForRenoveta,
 } from "service/nodemail";
 import auth from "../middleware/auth";
 import { validateForm as validate, RenovetaForm } from "../models/Form";
@@ -53,6 +54,7 @@ router.post("/", async (req, res) => {
 
   form = await form.save();
   registrationMailForCustomer(req.body.userInfo.email, req.body.userInfo.name);
+  registrationMailForRenoveta();
   return res.status(201).send(form);
 });
 
